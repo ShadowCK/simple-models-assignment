@@ -293,6 +293,7 @@ const addDog = async (req, res) => {
 const findDog = async (req, res) => {
   if (!req.query.name) {
     res.status(400).json({ error: 'Name is required to perform a search' });
+    return;
   }
 
   let doc;
@@ -301,10 +302,12 @@ const findDog = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: 'Something went wrong' });
+    return;
   }
 
   if (!doc) {
     res.json({ error: 'No dog found with the given name' });
+    return;
   }
 
   doc.age++;
